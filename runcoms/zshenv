@@ -6,8 +6,9 @@
 #
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+if [[ "$SHLVL" -eq 1 || "$SHLVL" -eq 2  && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+export LD_LIBRARY_PATH="/usr/lib32/jvm/default-runtime/lib/i386:/usr/lib32/jvm/default-runtime/lib/i386/xawt:/usr/lib32/jvm/default-runtime/lib/i386/client":$LD_LIBRARY_PATH
 
 ulimit -c unlimited

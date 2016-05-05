@@ -11,6 +11,8 @@
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+else
+  export BROWSER='google-chrome-stable'
 fi
 
 #
@@ -20,6 +22,16 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+
+#SDL Games Fix:
+export SDL_AUDIODRIVER='alsa'
+
+#Wine Audio Fix:
+export PULSE_LATENCY_MSEC=30
+export QT_OPENGL=software
+
+#Start MPD if not already started
+[ ! -s ~/.config/mpd/pid ] && mpd ~/.config/mpd/mpd.conf
 
 #
 # Language
@@ -48,7 +60,9 @@ path=(
   $path
 )
 
-export LD_LIBRARY_PATH=/home/peter/builds/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="/home/peter/builds/lib":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="/usr/lib32/jvm/default-runtime/lib/i386":$LD_LIBRARY_PATH
+export AWT_TOOLKIT="MToolkit"
 
 #
 # Less
@@ -75,3 +89,6 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#Start boinc
+boinc --daemon
